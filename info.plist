@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.alfredapp.src.guk</string>
+	<key>category</key>
+	<string>Search</string>
+	<key>connections</key>
+	<dict>
+		<key>03AF08DB-EF32-4D77-B3B9-A23011432853</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>A2E0F86F-4691-4BA2-BA9D-18D229AD963D</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>3A7459D3-8361-4954-B991-D0A1B18B21C6</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>D9D2B7D8-1180-4A2E-8CF3-D35C9B2FD6B8</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>A2E0F86F-4691-4BA2-BA9D-18D229AD963D</key>
+		<array/>
+		<key>D9D2B7D8-1180-4A2E-8CF3-D35C9B2FD6B8</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>03AF08DB-EF32-4D77-B3B9-A23011432853</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>F23FCA3E-8412-42D7-A628-48F5C2201BCC</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>3A7459D3-8361-4954-B991-D0A1B18B21C6</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Stephen Christy</string>
+	<key>description</key>
+	<string>Search Google using !guk from DuckduckGo</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Firefox search Google from DuckDuckGo</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{var:SearchString}</string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
+				<key>transient</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>03AF08DB-EF32-4D77-B3B9-A23011432853</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>{var:keyword}</string>
+				<key>skipuniversalaction</key>
+				<true/>
+				<key>subtext</key>
+				<string>Type &lt;space&gt; &amp; your search string</string>
+				<key>text</key>
+				<string>Search for '{query}' using !guk</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>F23FCA3E-8412-42D7-A628-48F5C2201BCC</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>--- Assumes default search engine in Firefox is DuckDuckGo
+--- Works with private window in foreground
+
+try
+	tell application "Firefox"
+   	--- Bring app to the front, starting it if necessary
+    	activate
+    	--- Wait until app windows have opened (in case app wasn't running)
+    	repeat until (count of windows) &gt; 0
+    	end repeat
+	end tell
+	delay 1
+end try
+tell application "System Events"
+	--- highlight the address bar
+	keystroke "l" using {command down}
+	delay 1
+	--- paste the full search command
+	keystroke "v" using {command down}
+	--- simulate pressing the return key
+	key code 36
+end tell</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>6</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>A2E0F86F-4691-4BA2-BA9D-18D229AD963D</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string></string>
+				<key>passthroughargument</key>
+				<true/>
+				<key>variables</key>
+				<dict>
+					<key>theBang</key>
+					<string>{var:defaultBang}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>3A7459D3-8361-4954-B991-D0A1B18B21C6</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string></string>
+				<key>passthroughargument</key>
+				<false/>
+				<key>variables</key>
+				<dict>
+					<key>SearchString</key>
+					<string>{var:theBang} {query} {var:defaultExclusions}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>D9D2B7D8-1180-4A2E-8CF3-D35C9B2FD6B8</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string># Introduction
+
+As a Firefox user I like to use DuckDuckGo as a search engine because it [does not track me](https://help.duckduckgo.com/duckduckgo-help-pages/privacy/anonymous-localized-results/). However, sometimes the results are not as good as those you can obtain from Google. This workflow allows for a direct seach using Google even when:
+
+- DuckDuckGo is your default search engine;
+- you are in a Firefox private window (although being in a private window is not a prerequisite for the workflow).
+
+# Usage
+
+This workflow:
+
+- relies on Firefox being installed (and uses Firefox for the search);
+- relies on DuckDuckGo being the default search engine in Firefox;
+- uses a DuckDuckGo !Bang to search Google (see [this DuckDuckGo help page](https://help.duckduckgo.com/duckduckgo-help-pages/features/bangs/) for more about !Bangs);
+- will work in a Firefox private window.
+
+(Note that `&lt;https://duckduckgo.com/?t=ffab&amp;q=!guk {query} -amazon -youtube -ebay&gt;` can be configured as a fallback search in Alfred *but* cannot be forced to execute in a Firefox private window. This workflow *will* execute in a private window.)
+
+In the User Configuration you can change:
+
+- the default keyword (`guk`);
+- the default !Bang (so, e.g., you could use `!g` to search Google generally as opposed to the default UK Google site);
+- the default exclusions from the search result (`-ebay -amazon -youtube`).
+
+![Search with !guk](Images/Screenshot 2022-11-24 at 08.20.11.png)</string>
+	<key>uidata</key>
+	<dict>
+		<key>03AF08DB-EF32-4D77-B3B9-A23011432853</key>
+		<dict>
+			<key>note</key>
+			<string>Copy complete search command to clipboard</string>
+			<key>xpos</key>
+			<real>460</real>
+			<key>ypos</key>
+			<real>60</real>
+		</dict>
+		<key>3A7459D3-8361-4954-B991-D0A1B18B21C6</key>
+		<dict>
+			<key>note</key>
+			<string>Set start of search string</string>
+			<key>xpos</key>
+			<real>210</real>
+			<key>ypos</key>
+			<real>90</real>
+		</dict>
+		<key>A2E0F86F-4691-4BA2-BA9D-18D229AD963D</key>
+		<dict>
+			<key>note</key>
+			<string>Pass search command to Firefox and paste into address bar</string>
+			<key>xpos</key>
+			<real>630</real>
+			<key>ypos</key>
+			<real>60</real>
+		</dict>
+		<key>D9D2B7D8-1180-4A2E-8CF3-D35C9B2FD6B8</key>
+		<dict>
+			<key>note</key>
+			<string>Assemble complete search string including any default exclusions</string>
+			<key>xpos</key>
+			<real>350</real>
+			<key>ypos</key>
+			<real>90</real>
+		</dict>
+		<key>F23FCA3E-8412-42D7-A628-48F5C2201BCC</key>
+		<dict>
+			<key>note</key>
+			<string>Type the keyword and the search string</string>
+			<key>xpos</key>
+			<real>30</real>
+			<key>ypos</key>
+			<real>60</real>
+		</dict>
+	</dict>
+	<key>userconfigurationconfig</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>guk</string>
+				<key>placeholder</key>
+				<string>guk</string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>This is the default keyword to trigger the workflow. It can be changed here.</string>
+			<key>label</key>
+			<string>Workflow keyword</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>keyword</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>!guk</string>
+				<key>placeholder</key>
+				<string>!guk</string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>This is the default !Bang that will be the first part of the search query. See the User Configuration for an explanation.</string>
+			<key>label</key>
+			<string>Default bang</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>defaultBang</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>-ebay -amazon -youtube</string>
+				<key>placeholder</key>
+				<string>-ebay -amazon -youtube</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>These are the default exclusions from your search. You can change them here following the same format (or delete them enitrely if you want no exclusions).</string>
+			<key>label</key>
+			<string>Default Exclusions</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>defaultExclusions</string>
+		</dict>
+	</array>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string>1.0</string>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
